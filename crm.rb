@@ -28,13 +28,29 @@ Tips
 	
 =end
 
+class Crm
+
+
+
+	attr_reader :name
+
+	def initialize(name)
+		@name = name
+		puts "Welcome to #{@name} CRM"
+		main_menu
+	end
+
+	
+
+
 def print_main_menu
   puts "[1] Type 'add' to add a new product"
   puts "[2] Type 'modify' to modify contact"
   puts "[3] Type 'delete' to delete a contact"
   puts "[4] Type 'display contact' to a contact"
   puts "[5] Type 'display attribute' to display an attribute"
-  puts "[6] Type 'exit' to exit"
+  puts "[6] Type 'display all' to display all contacts"
+  puts "[7] Type 'exit' to exit"
   puts "Enter your selection: "
   
 end
@@ -48,8 +64,7 @@ end
 
 
 
-def option (user_selected)
-
+def option(user_selected)
 
 	user_selection = case user_selected
 	when 'add' then  add_new_contact
@@ -57,6 +72,7 @@ def option (user_selected)
 	when 'delete' then delete_contact
 	when 'display contact' then display_contact
 	when 'display attribute'  then display_attribute
+	when 'display all'  then display_all
 	when 'exit' then puts 'exit' 
 	else
 		puts "Invalid selection"
@@ -65,16 +81,6 @@ def option (user_selected)
 
 	return user_selection
 end
-
-
-# def yes_no(user_input)
-# 	case user_input
-# 	 when 'yes' then main_menu
-# 	 when 'no' then main_menu
-# 	end 
-
-# end
-
 
 def add_new_contact
 		print "Enter First Name:"
@@ -96,8 +102,10 @@ def add_new_contact
 		puts "#{note}"
 
 
-		#initialize the instance of the Contact Class
+
+		#to add new user to database
 		# @rolodex.add_contact(Contact.new(first_name,last_name,email,note))
+
 	end
 
 def modify_contact
@@ -134,6 +142,9 @@ def modify_attribute
 		last_name.capitalize!
 
 		puts "You have successfully modified attribute to #{first_name} #{last_name}"
+		puts "type 'exit' to go back to the main menu:"
+		exit = gets.chomp
+		main_menu if exit.include?'exit'
 	
 end
 
@@ -164,9 +175,65 @@ def display_contact
 end
 
 
+def display_all
 
+	puts "There are #{@contact_counter} contact"
+
+end
 
 
 #to call the main_menu method
 #place at the bottom - better !
-main_menu
+# main_menu
+
+end
+
+
+
+class Contact 
+
+def initialize(first_name,last_name,email,note)
+		@first_name = first_name
+		@last_name = last_name
+		@email = email
+		@note = note
+
+	end
+
+
+end
+
+
+class Rolodex 
+	@contact_counter = 0
+	#this is where we re gonna store all contacts entered
+	#works like a database
+	def initialize 
+		#counter
+		@contact_counter +=1
+		#create
+		@contact  = []
+	end
+
+
+	def add_contact(contact)
+		#paramater contact holds all the date(fname, lastname .. of the new contact)
+		#then the parameters get added to array @contacts
+		#contact_id gets incremented each time there is an addition
+
+		@contact << contact
+
+		#to track number of contacts
+		contact_id = @contact_id
+		return 
+	
+	end
+
+
+end
+
+
+
+new_crm1 = Crm.new("Bitmaker Labs")
+puts new_crm1
+
