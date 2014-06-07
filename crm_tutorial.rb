@@ -31,7 +31,7 @@ DONE
 #this is the user story 
 #this includes all the methods that fall under the same CRM category 
 
-class CRM
+class CRM 
 
 
 
@@ -64,14 +64,33 @@ class CRM
 
 
 	def call_option(user_selected)
-	  add_new_contact if user_selected == 1
-	  modify_existing_contact if user_selected == 2
-	  delete_existing_contact if user_selected == 3
-	  display_all_contacts if user_selected == 4
-	  display_attribute if user_selected == 5
-	  back_main_menu if user_selected == 6
+	  # add_new_contact if user_selected == 1
+	  # modify_existing_contact if user_selected == 2
+	  # delete_existing_contact if user_selected == 3
+	  # display_all_contacts if user_selected == 4
+	  # display_attribute if user_selected == 5
+	  # back_main_menu if user_selected == 6
 
-	  #case
+
+		  case user_selected
+		  when 1
+		  	then add_new_contact 
+		  when 2
+		  	then modify_existing_contact
+		  when 3
+		  	then delete_existing_contact 
+		  when 4
+		  	then display_all_contacts 
+		  when 5
+		  	 then  display_attribute 
+		  when 6
+		  	then main_menu
+		  		#exit and return do not work
+		  else
+		  		puts "Invalid Selection - Please try again"
+		  		main_menu
+		  end
+
 	end
 
 
@@ -132,7 +151,7 @@ class CRM
 end 
 
 #new class to store user's info ; the parameters correspond to the 
-class Contact
+class Contact < CRM
 
 	#needs to be inside the class Contact to allow the following methods to be read
 	attr_reader :name, :first_name, :last_name, :email, :note
@@ -162,7 +181,7 @@ class Contact
 end
 
 
-class Rolodex
+class Rolodex < CRM
 
   def initialize
     @contacts = []
