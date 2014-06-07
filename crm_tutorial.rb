@@ -120,9 +120,18 @@ class CRM
 		  #local var converted into instance var inside class Contact?
 		  #what about variable contact?
 
-		  # contact = Contact.new(first_name, last_name, email, note)
+		  #inside CRM, we can access other class
+		  contact = Contact.new(first_name, last_name, email, note)
 
-		  #how a method can work outside of a class
+		  #do not forget to add the attr_reader inside Contact - so the method can b read
+		  #finally, no need to repeat if we set the class Contact as a subclass of CRM. Thus, the attr_reader is inherited from CRM
+		  puts contact.first_name
+		  puts contact.last_name
+		  puts contact.email
+		  puts contact.note 
+
+
+		  #how a method can work outside of a class - Answer : create a subclass
 		  #@rolodex.add_contact(contact)
 
 		  #using the var contact to output the user's info
@@ -157,7 +166,7 @@ class CRM
 
 end 
 
-crm = CRM.run("Bitmaker")
+
 
 #we need to add an attr_reader to make the method name available outside of the class
 #although, probably to keep things inside the class 
@@ -167,10 +176,10 @@ crm = CRM.run("Bitmaker")
 
 
 #new class to store user's info ; the parameters correspond to the 
-class Contact 
-
+class Contact < CRM
+	# attr_reader :name, :first_name, :last_name, :email, :note
 	#needs to be inside the class Contact to allow the following methods to be read
-	attr_reader :name, :first_name, :last_name, :email, :note
+
 
 	#we need setter/getter methods in order to set/get value of an attr.
 
@@ -179,8 +188,8 @@ class Contact
 		@email		
 	end
 
-	#setter 
-	def note(note)
+	#setter - set a default to avoid error in the case the note is missing
+	def note(note= "no notes")
 	    @note = note
   	end
 
