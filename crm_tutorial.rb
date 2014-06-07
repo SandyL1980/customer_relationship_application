@@ -33,7 +33,7 @@ DONE
 
 class CRM 
 
-
+	attr_reader :name, :first_name, :last_name, :email, :note
 
 	#def to test instance var accessible outside of initialize
 	def testing_instance_var 
@@ -98,31 +98,38 @@ class CRM
 
 	def add_new_contact
 		  print "Enter First Name: "
-		  first_name = gets.chomp
+		  first_name = gets.chomp.capitalize!
+
+
 		  print "Enter Last Name: "
-		  last_name = gets.chomp
+		  last_name = gets.chomp.capitalize!
+
+
 		  print "Enter Email Address: "
 		  email = gets.chomp
 		  print "Enter a Note: "
 		  note = gets.chomp
 
+		  puts "You have entered: "
+		  puts "#{first_name}"
+		  puts "#{last_name}"
+		  puts "#{email}"
+		  puts "#{note}"
+
 		  #instance of class Contact initialized each time a new contact is added
-		  #local var converted into instance var inside class Contact
+		  #local var converted into instance var inside class Contact?
 		  #what about variable contact?
-		  contact = Contact.new(first_name, last_name, email, note)
+
+		  # contact = Contact.new(first_name, last_name, email, note)
 
 		  #how a method can work outside of a class
-		  @rolodex.add_contact(contact)
+		  #@rolodex.add_contact(contact)
 
-		  #inside the same method we have created the local var
-		  puts contact.first_name
-		  puts contact.last_name
-		  puts contact.email
-		  puts contact.note("some notes")
+		  #using the var contact to output the user's info
 
+		  
 		  #extra - def a method to output a user's info nicely
-
-
+	 
 	end
 
 	 # def user_data_output
@@ -138,8 +145,8 @@ class CRM
 		#converting the local var into an instance var in order to make it available outside of initialize 
 		@name = name
 
-		puts "Welcome to the #{@name} CRM"
-
+		#below using name or @name is fine ; we are using the attr_accessor which allows to read the method
+		puts "Welcome to the #{name} CRM"
 		# main_menu
 	end
 
@@ -150,8 +157,17 @@ class CRM
 
 end 
 
+crm = CRM.run("Bitmaker")
+
+#we need to add an attr_reader to make the method name available outside of the class
+#although, probably to keep things inside the class 
+#not a good 
+
+
+
+
 #new class to store user's info ; the parameters correspond to the 
-class Contact < CRM
+class Contact 
 
 	#needs to be inside the class Contact to allow the following methods to be read
 	attr_reader :name, :first_name, :last_name, :email, :note
@@ -168,7 +184,7 @@ class Contact < CRM
 	    @note = note
   	end
 
-	# attr_accessor
+
   def initialize(first_name, last_name, email, note)
     @first_name = first_name
     @last_name = last_name
@@ -176,12 +192,11 @@ class Contact < CRM
     @note = note
   end
 
-
-
 end
 
 
-class Rolodex < CRM
+class Rolodex 
+attr_reader :name, :first_name, :last_name, :email, :note
 
   def initialize
     @contacts = []
