@@ -8,6 +8,7 @@ class Contact
     @last_name = last_name
     @email = email 
     @note = note
+    @id = id
   end
 
   # def display_all_values
