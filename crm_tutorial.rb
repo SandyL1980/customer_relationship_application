@@ -43,6 +43,7 @@ class CRM
 	end
 
 	def print_main_menu
+	puts "Welcome to the #{name} CRM"
 	  puts "[1] Add a new contact"
 	  puts "[2] Modify an existing contact"
 	  puts "[3] Delete a contact"
@@ -122,6 +123,7 @@ class CRM
 
 		  #inside CRM, we can access other class
 		  contact = Contact.new(first_name, last_name, email, note)
+		  @rolodex.add_contact(contact)
 
 		  #do not forget to add the attr_reader inside Contact - so the method can b read
 		  #finally, no need to repeat if we set the class Contact as a subclass of CRM. Thus, the attr_reader is inherited from CRM
@@ -129,6 +131,7 @@ class CRM
 		  puts contact.last_name
 		  puts contact.email
 		  puts contact.note 
+		  puts contact.id
 
 
 		  #how a method can work outside of a class - Answer : create a subclass
@@ -136,7 +139,8 @@ class CRM
 
 		  #using the var contact to output the user's info
 
-		  
+
+	
 		  #extra - def a method to output a user's info nicely
 	 
 	end
@@ -155,7 +159,12 @@ class CRM
 		@name = name
 
 		#below using name or @name is fine ; we are using the attr_accessor which allows to read the method
-		puts "Welcome to the #{name} CRM"
+		#if the Welcome is added to initializer will happen just once
+		#if u want it to happen all the time (when going back to main menu), add to main_menu method
+
+
+		#new Rolodex instance upon initialization of a CRM instance - works in pairs
+		@rolodex = Rolodex.new
 		# main_menu
 	end
 
@@ -177,6 +186,9 @@ end
 
 #new class to store user's info ; the parameters correspond to the 
 class Contact < CRM
+
+	#attr_accessor here to retrieve data
+	attr_accessor :id, :name, :first_name, :last_name, :email, :note
 	# attr_reader :name, :first_name, :last_name, :email, :note
 	#needs to be inside the class Contact to allow the following methods to be read
 
@@ -201,25 +213,32 @@ class Contact < CRM
     @note = note
   end
 
+
 end
 
 
 class Rolodex 
-attr_reader :name, :first_name, :last_name, :email, :note
+
 
   def initialize
     @contacts = []
-    @id = 1000
+    @contact_id = 1000
   end
 
-  def contacts
-    @contacts
-  end
+  
 
   def add_contact(contact)
-    contact.id = @id
+  
+  	#any new contact gets pushed into the @contact [] array
     @contacts << contact
-    @id += 1
+
+    #creates a new object - a unique id #
+    #then, we need to be able to read it, so we are adding an attr_accessor at the top
+    contact.id = @contact_id
+
+    #contact_id incremented each time a new contact is added
+    @contact_id += 1
+
   end
 end
 
@@ -237,6 +256,7 @@ end
 
 crm = CRM.run("Bitmaker")
 puts crm
+
 # puts crm.main_menu
 
 
