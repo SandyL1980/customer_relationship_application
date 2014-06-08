@@ -73,7 +73,7 @@ end
 def call_option(selection)
 
 	case(selection)
-	when 'add' then puts add_new_contact
+	when 'add' then add_new_contact
 	when 'modify' then modify_new_contact
 	when 'display contact' then display_existing_contact
 	when 'display all' then display_all_existing_contacts
@@ -84,6 +84,32 @@ def call_option(selection)
 		puts 'Invalid Selection, please try again' 
 		main_menu
 	end
+
+end
+
+def add_new_contact
+
+	print "Enter First Name: "
+	first_name = gets.chomp.capitalize!
+
+
+	print "Enter Last Name: "
+	last_name = gets.chomp.capitalize!
+
+
+	print "Enter Email Address: "
+	email = gets.chomp
+
+	print "Enter Notes: "
+	note = gets.chomp
+
+	puts "Thank You - You have entered: "
+	puts "- #{first_name}"
+	puts "- #{last_name}"
+	puts "- #{email}"
+	puts "- #{note}"
+
+
 
 end
 
