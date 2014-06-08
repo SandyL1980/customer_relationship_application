@@ -60,7 +60,13 @@ class CRM
 		@rolodex = Rolodex.new
 	end
 
+	def self.run(name)
+	    crm = CRM.new(name)
+	    crm.main_menu
+    end
+
 	def print_main_menu
+	  puts "#{name} CRM - Main Menu"
 	  puts "[1] Type 'add' to add a new contact"
 	  puts "[2] Type 'modify' to modify an existing contact"
 	  puts "[3] Type 'display contact' to display an existing contact"
@@ -192,19 +198,34 @@ class CRM
 
 	end
 
+	def display_all_existing_contacts
+
+		puts @contacts
+		puts "There are #{@contact_id} existing contacts"
+
+	end
+
 end #end class CRM
 
 class Contact < CRM
 
   attr_accessor :id, :name, :first_name, :last_name, :email, :note
 
-  #All attributes are available inside the entire CRM program
+  #All attributes are available inside the entire CRM program with instance variables
   def initialize(first_name, last_name, email, note)
     @first_name = first_name
     @last_name = last_name
     @email = email 
     @note = note
   end
+
+  def display_all_values
+  	puts "#{@first_name}"
+  	puts "#{@last_name}"
+  	puts "#{@email}"
+  	puts "#{@note}"
+  end
+
 
 end
 
@@ -227,5 +248,5 @@ class Rolodex
 end
 
 
-crm = CRM.new("Bitmaker Labs")
+crm = CRM.run("Bitmaker Labs")
 crm.main_menu
