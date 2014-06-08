@@ -61,3 +61,31 @@ def print_main_menu
   puts "[6] Type 'exit' to exit application"
   puts "Type a selection: "
 end
+
+	
+def main_menu
+	print_main_menu
+	user_selection = gets.chomp
+	call_option(user_selection)
+
+end
+
+def call_option(selection)
+
+	case(selection)
+	when 'add' then puts add_new_contact
+	when 'modify' then modify_new_contact
+	when 'display contact' then display_existing_contact
+	when 'display all' then display_all_existing_contacts
+	when 'display attribute' then display_existing_contact_with_attribute
+	when 'delete' then delete_existing_contact
+	when 'exit' then main_menu
+	else 
+		puts 'Invalid Selection, please try again' 
+		main_menu
+	end
+
+end
+
+
+main_menu
